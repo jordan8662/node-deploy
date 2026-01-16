@@ -88,3 +88,48 @@ cd txblob
 go build
 ./txblob
 ```
+
+
+geth account new --datadir ./validator-account/validator0
+geth account new --datadir ./validator-account/validator1
+geth account new --datadir ./validator-account/validator2
+geth account new --datadir ./validator-account/validator3
+
+geth bls account new --datadir ./bls-account/bls0
+
+geth bls account list --datadir ${DATA_DIR}
+
+bootnode -genkey ./sentry/sentry-nodekey0
+bootnode -genkey ./sentry/sentry-nodekey1
+bootnode -genkey ./sentry/sentry-nodekey2
+bootnode -genkey ./sentry/sentry-nodekey3
+
+
+bootnode -genkey ./validator/validator-nodekey0
+bootnode -genkey ./validator/validator-nodekey1
+bootnode -genkey ./validator/validator-nodekey2
+bootnode -genkey ./validator/validator-nodekey3
+
+查看对应 enode
+bootnode -nodekey sentry-nodekey -writeaddress
+
+### 注意事项（⚠️ 很重要）
+1.nodekey 不能泄露
+2.泄露 = 节点身份被劫持
+3.一对 sentry / validator 通常固定 nodekey
+4.不能多个节点共用同一个 nodekey
+5.BSC 与 ETH nodekey 规则完全一致（secp256k1）
+
+### 常见问题
+Q：nodekey 是不是和钱包私钥一样？
+❌ 不是
+✔ 只是 P2P 网络身份私钥，不控制资产
+Q：能不能随机生成 64 位 hex？
+❌ 不建议
+✔ 必须是 secp256k1 合法私钥（bootnode/geth 会保证）
+
+初始化子模块
+git submodule update --init --recursive
+
+拉取子模块的最新更改
+git submodule update --remote
