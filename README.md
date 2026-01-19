@@ -89,6 +89,20 @@ go build
 ./txblob
 ```
 
+## 拷贝验证节点或全节点的配置
+```bash
+./copyNode.sh vnode 3
+tar -czvf newnode.gar.gz newnode
+or
+./copyNode.sh fullnode 0
+tar -czvf fullnode.gar.gz fullnode
+```
+### 全节点的部署依赖于bsc_cluster.sh部署的验证节点
+
+## 启动验证节点
+```bash
+./startNode.sh start 3 172.31.27.118
+```
 
 geth account new --datadir ./validator-account/validator0
 geth account new --datadir ./validator-account/validator1
@@ -129,7 +143,34 @@ Q：能不能随机生成 64 位 hex？
 ✔ 必须是 secp256k1 合法私钥（bootnode/geth 会保证）
 
 初始化子模块
-git submodule update --init --recursive
+git submodule update --init --recursive genesis
 
 拉取子模块的最新更改
 git submodule update --remote
+
+### 获取节点1的enode信息
+./bin/geth --exec 'admin.nodeInfo.enode' attach .local/node0/geth.ipc
+
+./bin/geth \
+  --datadir node2 \
+  --syncmode 'full' \
+  --port 30312 \
+  --http \
+  --http.addr '0.0.0.0' \
+  --http.port 8547 \
+  --http.api 'personal,eth,net,web3,txpool,miner' \
+  --ws \
+  --ws.addr '0.0.0.0' \
+  --ws.port 8548 \
+  --ws.api 'personal,eth,net,web3,txpool,miner' \
+  --networkid 12345 \
+  --nat 'any' \
+  --bootnodes 'enode://NODE1_ENODE_HERE@SERVER1_IP:30311' \
+  --allow-insecure-unlock \
+  --verbosity 3
+
+
+scp /path/to/local/file.txt username@remote_host:/path/to/remote/directory/
+
+
+scp fullnode.tar.gz root@172.31.25.65:/root/
