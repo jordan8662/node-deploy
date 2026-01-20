@@ -126,6 +126,8 @@ function prepare_config() {
       --init-minimal-delay "1 minutes" \
       --token-recover-portal-protector "${INIT_HOLDER}"
     cp genesis-dev.json genesis.json
+
+    sed -i "s/176405560900000000000000000/0x0/" genesis.json
 }
 
 function initNetwork() {
