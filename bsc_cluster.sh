@@ -111,19 +111,19 @@ function prepare_config() {
     poetry run python -m scripts.generate dev \
       --dev-chain-id "${CHAIN_ID}" \
       --init-burn-ratio "1000" \
-      --init-felony-slash-scope "60" \
-      --breathe-block-interval "10 minutes" \
+      --init-felony-slash-scope "28800" \
+      --breathe-block-interval "1 days" \
       --block-interval "3 seconds" \
       --stake-hub-protector "${INIT_HOLDER}" \
-      --unbond-period "2 minutes" \
-      --downtime-jail-time "2 minutes" \
-      --felony-jail-time "3 minutes" \
+      --unbond-period "7 days" \
+      --downtime-jail-time "2 days" \
+      --felony-jail-time "30 days" \
       --misdemeanor-threshold "50" \
       --felony-threshold "150" \
-      --init-voting-period "2 minutes / BLOCK_INTERVAL" \
-      --init-min-period-after-quorum "uint64(1 minutes / BLOCK_INTERVAL)" \
+      --init-voting-period "7 days / BLOCK_INTERVAL" \
+      --init-min-period-after-quorum "uint64(1 days / BLOCK_INTERVAL)" \
       --governor-protector "${INIT_HOLDER}" \
-      --init-minimal-delay "1 minutes" \
+      --init-minimal-delay "24 hours" \
       --token-recover-portal-protector "${INIT_HOLDER}"
     cp genesis-dev.json genesis.json
 
