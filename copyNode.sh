@@ -5,7 +5,7 @@ set -e
 
 function vnode() {
     rm -rf newnode
-    mkdir -p newnode/.local/node$ValidatorIdx/geth
+    mkdir -p newnode/.local/node$ToIdx/geth
     mkdir -p newnode/.local/node0
     mkdir -p newnode/bin/
 
@@ -15,35 +15,36 @@ function vnode() {
     cp .local/node0/hardforkTime.txt newnode/.local/node0/
     cp .local/node0/init.log newnode/.local/node0/
 
-    cp -r .local/node$ValidatorIdx/bls newnode/.local/node$ValidatorIdx/
-    cp .local/node$ValidatorIdx/config.toml newnode/.local/node$ValidatorIdx/
-    cp .local/node$ValidatorIdx/genesis.json newnode/.local/node$ValidatorIdx/
-    cp .local/node$ValidatorIdx/geth/nodekey newnode/.local/node$ValidatorIdx/geth/
+    cp -r .local/node$FromIdx/bls newnode/.local/node$ToIdx/
+    cp .local/node$FromIdx/config.toml newnode/.local/node$ToIdx/
+    cp .local/node$FromIdx/genesis.json newnode/.local/node$ToIdx/
+    cp .local/node$FromIdx/geth/nodekey newnode/.local/node$ToIdx/geth/
     #节点运行时会自动创建geth.ipc
- #   cp -r .local/node$ValidatorIdx/geth.ipc newnode/.local/node$ValidatorIdx/
+ #   cp -r .local/node$FromIdx/geth.ipc newnode/.local/node$ToIdx/
     
-    cp -r .local/node$ValidatorIdx/keystore newnode/.local/node$ValidatorIdx/
-    cp .local/node$ValidatorIdx/password.txt newnode/.local/node$ValidatorIdx/
-    cp -r .local/node$ValidatorIdx/voteJournal newnode/.local/node$ValidatorIdx/
+    cp -r .local/node$FromIdx/keystore newnode/.local/node$ToIdx/
+    cp .local/node$FromIdx/password.txt newnode/.local/node$ToIdx/
+    cp -r .local/node$FromIdx/voteJournal newnode/.local/node$ToIdx/
 }
 
 function fullnode() {
     rm -rf fullnode
-    mkdir -p ./fullnode/.local/node$ValidatorIdx/geth/
+    mkdir -p ./fullnode/.local/node$ToIdx/geth/
     mkdir -p ./fullnode/bin/
 
     cp bin/geth ./fullnode/bin/
     cp bsc_fullnode.sh ./fullnode/
     cp .env ./fullnode/
-    cp keys/fullnode-nodekey$ValidatorIdx ./fullnode/.local/node$ValidatorIdx/geth/nodekey
-    cp .local/node$ValidatorIdx/hardforkTime.txt ./fullnode/.local/node$ValidatorIdx/
-    cp .local/node$ValidatorIdx/init.log ./fullnode/.local/node$ValidatorIdx/
-    cp .local/node$ValidatorIdx/config.toml ./fullnode/.local/node$ValidatorIdx/
-    cp .local/node$ValidatorIdx/genesis.json ./fullnode/.local/node$ValidatorIdx/
+    cp keys/fullnode-nodekey$FromIdx ./fullnode/.local/node$ToIdx/geth/nodekey
+    cp .local/node$FromIdx/hardforkTime.txt ./fullnode/.local/node$ToIdx/
+    cp .local/node$FromIdx/init.log ./fullnode/.local/node$ToIdx/
+    cp .local/node$FromIdx/config.toml ./fullnode/.local/node$ToIdx/
+    cp .local/node$FromIdx/genesis.json ./fullnode/.local/node$ToIdx/
 }
 
 CMD=$1
-ValidatorIdx=$2
+FromIdx=$2
+ToIdx=$3
 
 case ${CMD} in
 vnode)
@@ -57,7 +58,7 @@ vnode)
     echo "===== end ===="
     ;;
 *)
-    echo "Usage: copyNode.sh vnode|fullnode nodeIndex"
-    echo "like: copyNode.sh vnode 0, it will copy a config of node0"
+    echo "Usage: copyNode.sh vnode|fullnode fromNodeIndex toNodeIndex"
+    echo "like: copyNode.sh vnode 3 0, it will copy a config of node3"
     ;;
 esac
