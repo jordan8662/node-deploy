@@ -30,6 +30,7 @@ function init() {
     ConsIp=$2
     #sed -i "s/^127.0.0.1:303$/$ConsIp:303/" ${workspace}/.local/node$ValIdx/config.toml
     sed -i "s/127.0.0.1:303/$ConsIp:303/g" ${workspace}/.local/node$ValIdx/config.toml
+    sed -i 's/ListenAddr = ":303[0-9]*"/ListenAddr = ":30311"/' ${workspace}/.local/node$ValIdx/config.toml
 
     ${workspace}/bin/geth init --state.scheme path --datadir ${workspace}/.local/node$ValIdx/ ${workspace}/.local/node$ValIdx/genesis.json
 

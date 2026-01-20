@@ -99,6 +99,9 @@ tar -czvf fullnode.gar.gz fullnode
 ```
 ### 全节点的部署依赖于bsc_cluster.sh部署的验证节点
 
+## 替换节点的P2P地址
+replaceP2P.sh 0 127.0.0.1:30314 172.31.25.65:30311
+
 ## 启动验证节点
 ```bash
 ./startNode.sh start 3 172.31.27.118

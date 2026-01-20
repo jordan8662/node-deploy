@@ -10,6 +10,7 @@ function vnode() {
     mkdir -p newnode/bin/
 
     cp .env newnode/
+    cp startNode.sh newnode/
     cp bin/geth newnode/bin/
 
     cp .local/node0/hardforkTime.txt newnode/.local/node0/
