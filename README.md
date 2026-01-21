@@ -89,6 +89,11 @@ go build
 ./txblob
 ```
 
+## 生成新的validator、bls、nodekey
+```bash
+./createKeys.sh vnode|bls|sentry 4
+```
+
 ## 拷贝验证节点或全节点的配置
 ```bash
 ./copyNode.sh vnode 3
@@ -107,25 +112,8 @@ replaceP2P.sh 0 127.0.0.1:30314 172.31.25.65:30311
 ./startNode.sh start 3 172.31.27.118
 ```
 
-geth account new --datadir ./validator-account/validator0
-geth account new --datadir ./validator-account/validator1
-geth account new --datadir ./validator-account/validator2
-geth account new --datadir ./validator-account/validator3
-
-geth bls account new --datadir ./bls-account/bls0
-
 geth bls account list --datadir ${DATA_DIR}
 
-bootnode -genkey ./sentry/sentry-nodekey0
-bootnode -genkey ./sentry/sentry-nodekey1
-bootnode -genkey ./sentry/sentry-nodekey2
-bootnode -genkey ./sentry/sentry-nodekey3
-
-
-bootnode -genkey ./validator/validator-nodekey0
-bootnode -genkey ./validator/validator-nodekey1
-bootnode -genkey ./validator/validator-nodekey2
-bootnode -genkey ./validator/validator-nodekey3
 
 查看对应 enode
 bootnode -nodekey sentry-nodekey -writeaddress
