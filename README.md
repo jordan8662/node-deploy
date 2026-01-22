@@ -89,6 +89,13 @@ go build
 ./txblob
 ```
 
+## 首次启动链
+```bash
+./bsc_cluster.sh init
+#额外操作：可以修改 genesis/genesis.json 文件
+./bsc_cluster.sh firstStart
+```
+
 ## 生成新的validator、bls、nodekey
 ```bash
 ./createKeys.sh vnode|bls|sentry 4

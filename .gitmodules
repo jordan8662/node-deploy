@@ -1,3 +1,5 @@
 [submodule "genesis"]
 	path = genesis
-	url = git@jordan8662:jordan8662/bsc-genesis-contract.git
+	url = https://github.com/jordan8662/bsc-genesis-contract.git
+	branch = master
+	ignore = dirty

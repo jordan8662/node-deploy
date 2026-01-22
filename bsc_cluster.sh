@@ -48,18 +48,23 @@ function prepare_bsc_client() {
 }
 # reset genesis, but keep edited genesis-template.json
 function reset_genesis() {
-    if [ ! -f "${workspace}/genesis/genesis-template.json" ]; then
-        cd ${workspace} && git submodule update --init --recursive genesis
-        cd ${workspace}/genesis && git reset --hard ${GENESIS_COMMIT}
-    fi
+    #if [ ! -f "${workspace}/genesis/genesis-template.json" ]; then
+    #    cd ${workspace} && git submodule update --init --recursive genesis
+    #    cd ${workspace}/genesis && git reset --hard ${GENESIS_COMMIT}
+    #fi
+
     cd ${workspace}/genesis
-    cp genesis-template.json genesis-template.json.bk
-    cp scripts/init_holders.template scripts/init_holders.template.bk
-    git stash
-    cd ${workspace} && git submodule update --remote --recursive genesis && cd ${workspace}/genesis
-    git reset --hard ${GENESIS_COMMIT}
-    mv genesis-template.json.bk genesis-template.json
-    mv scripts/init_holders.template.bk scripts/init_holders.template
+    
+    #cp genesis-template.json genesis-template.json.bk
+    #cp scripts/init_holders.template scripts/init_holders.template.bk
+
+    #git stash #保存工作区和暂存区的修改
+    #cd ${workspace} && git submodule update --remote --recursive genesis #拉取新的
+    
+    #cd ${workspace}/genesis
+    #git reset --hard ${GENESIS_COMMIT}
+    #mv genesis-template.json.bk genesis-template.json
+    #mv scripts/init_holders.template.bk scripts/init_holders.template
 
     poetry install --no-root
     npm install
@@ -299,6 +304,18 @@ reset)
     native_start
     register_stakehub
     ;;
+init)
+    exit_previous
+    create_validator
+    prepare_bsc_client
+    reset_genesis
+    prepare_config
+    ;;
+ firstStart)
+    initNetwork
+    native_start
+    register_stakehub
+    ;;   
 stop)
     exit_previous $ValidatorIdx
     ;;
