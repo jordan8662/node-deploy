@@ -175,11 +175,14 @@ scp /path/to/local/file.txt username@remote_host:/path/to/remote/directory/
 scp fullnode.tar.gz root@172.31.25.65:/root/
 
 
+### 修改最低的gas price，需要修改以下文件：
+1. config.toml
 ### config.toml参数说明
 参数	       核心作用
 PriceLimit	交易能不能进池子的最低门槛
 GasPrice	  节点默认使用的 gas 单价
 Recommit	  验证者多久重新打包一次区块（10000000000 10秒）
+2. bsc/eth/gasprice/gasprice.go DefaultMaxPrice
 
 
 sed -i "s/PriceLimit = 1000000000000/PriceLimit = 190476190480/g" .local/node0/config.toml
@@ -199,3 +202,4 @@ totalAmt:= 0x33b2e3c9fd0803ce8000000 //10亿
 initAmt:= 0x33b2c8aba00373f55700000 //10亿-8004
 validatorsTotalAmt:= 0x1b1e5d048fd92900000 //8004
 validatorAmt:= 0x6c7974123f64a40000 //2001
+
