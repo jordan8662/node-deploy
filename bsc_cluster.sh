@@ -18,7 +18,6 @@ sleepAfterStart=10
 
 # stop geth client
 function exit_previous() {
-    echo "xxxxxxxxx"
     echo ${workspace}
     ValIdx=$1
     echo "geth${ValIdx}"
