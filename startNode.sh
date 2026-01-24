@@ -96,7 +96,7 @@ function native_start() {
 
 function register_stakehub(){
     # stakehub wait feynman enable 
-    ${workspace}/bin/create-validator --consensus-key-dir ${workspace}/.local/node$ValidatorIdx --vote-key-dir ${workspace}/.local/node$ValidatorIdx/bls \
+    ${workspace}/bin/create-validator --consensus-key-dir ${workspace}/.local/node$ValidatorIdx --vote-key-dir ${workspace}/.local/node$ValidatorIdx \
             --password-path ${workspace}/.local/node$ValidatorIdx/password.txt --amount 1501 --validator-desc Val${VnodeIdx} --rpc-url ${ConsIp}
 }
 
