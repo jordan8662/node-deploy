@@ -323,10 +323,8 @@ genGenesis)
     reset_genesis
     prepare_config
     ;;
-initNetwork)
-    initNetwork
-    ;;
 firstStart)
+    initNetwork
     native_start
     register_stakehub
     ;;    
