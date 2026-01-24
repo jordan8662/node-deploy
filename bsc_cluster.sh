@@ -133,6 +133,9 @@ function prepare_config() {
     cp genesis-dev.json genesis.json
 
     sed -i "s/176405560900000000000000000/0x0/" genesis.json
+    sed -i "s/PriceLimit = 1000000000/PriceLimit = 190476190480/g" ${workspace}/config.toml
+    sed -i "s/GasPrice = 1000000000/GasPrice = 190476190480/g" ${workspace}/config.toml
+
 }
 
 function initNetwork() {

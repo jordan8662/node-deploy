@@ -172,3 +172,25 @@ scp /path/to/local/file.txt username@remote_host:/path/to/remote/directory/
 
 
 scp fullnode.tar.gz root@172.31.25.65:/root/
+
+
+### config.toml参数说明
+参数	       核心作用
+PriceLimit	交易能不能进池子的最低门槛
+GasPrice	  节点默认使用的 gas 单价
+Recommit	  验证者多久重新打包一次区块（10000000000 10秒）
+
+
+sed -i "s/PriceLimit = 1000000000000/PriceLimit = 190476190480/g" .local/node0/config.toml
+sed -i "s/GasPrice = 1000000000000/GasPrice = 190476190480/g" .local/node0/config.toml
+
+sed -i "s/PriceLimit = 1000000000000/PriceLimit = 190476190480/g" .local/node1/config.toml
+sed -i "s/GasPrice = 1000000000000/GasPrice = 190476190480/g" .local/node1/config.toml
+
+sed -i "s/PriceLimit = 1000000000000/PriceLimit = 190476190480/g" .local/node2/config.toml
+sed -i "s/GasPrice = 1000000000000/GasPrice = 190476190480/g" .local/node2/config.toml
+
+sed -i "s/PriceLimit = 1000000000000/PriceLimit = 190476190480/g" .local/node3/config.toml
+sed -i "s/GasPrice = 1000000000000/GasPrice = 190476190480/g" .local/node3/config.toml
+
+
