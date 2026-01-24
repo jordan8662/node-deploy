@@ -91,8 +91,9 @@ go build
 
 ## 首次启动链
 ```bash
-./bsc_cluster.sh init
+./bsc_cluster.sh genGenesis
 #额外操作：可以修改 genesis/genesis.json 文件
+./bsc_cluster.sh initNetwork
 ./bsc_cluster.sh firstStart
 ```
 
