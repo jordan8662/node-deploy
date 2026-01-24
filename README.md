@@ -194,7 +194,7 @@ sed -i "s/PriceLimit = 1000000000000/PriceLimit = 190476190480/g" .local/node3/c
 sed -i "s/GasPrice = 1000000000000/GasPrice = 190476190480/g" .local/node3/config.toml
 
 
-totalAmt:= 0x33b2e3c9fd0803ce8000000
-initAmt:= 0x33b2c8aba00373f55700000
-validatorsTotalAmt:= 0x1b1e5d048fd92900000
-validatorAmt:= 0x6c7974123f64a40000
+totalAmt:= 0x33b2e3c9fd0803ce8000000 //10亿
+initAmt:= 0x33b2c8aba00373f55700000 //10亿-8004
+validatorsTotalAmt:= 0x1b1e5d048fd92900000 //8004
+validatorAmt:= 0x6c7974123f64a40000 //2001
