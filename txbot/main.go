@@ -17,8 +17,7 @@ import (
 )
 
 var (
-	//account, _ = fromHexKey("2edc0461a0d5ef0da05f3852f1a9c56849b629b369b8c77a1ccd6e800f9278cf")
-	account, _ = fromHexKey("59ba8068eb256d520179e903f43dacf6d8d57d72bd306e1bd603fdb8c8da10e8")
+	account, _ = fromHexKey("2edc0461a0d5ef0da05f3852f1a9c56849b629b369b8c77a1ccd6e800f9278cf")
 	toAddr     = common.HexToAddress("0xDDA23D85E6582c0B0948D7AeC5f3328F8D74c335")
 
 	endpointFlag = flag.String("endpoint", "http://127.0.0.1:8545", "The endpoint of the chain")
