@@ -30,7 +30,7 @@ function stop_all() {
     for ((i = 0; i < size; i++)); do
         echo "stop geth${i}"
         ps -ef  | grep geth$i | grep config |awk '{print $2}' | xargs -r kill
-        sleep ${sleepBeforeStart}
+        sleep ${sleepAfterStart}
     done
 }
 
