@@ -8,10 +8,14 @@ function vnode() {
     mkdir -p newnode/.local/node$ToIdx/geth
     mkdir -p newnode/.local/node0
     mkdir -p newnode/bin/
+    #mkdir -p newnode/keys/
 
     cp .env newnode/
     cp startNode.sh newnode/
     cp bin/geth newnode/bin/
+
+    cp ./create-validator/create-validator newnode/bin/
+    #cp -r ./keys/validator${FromIdx} newnode/keys/validator${ToIdx}
 
     cp .local/node0/hardforkTime.txt newnode/.local/node0/
     cp .local/node0/init.log newnode/.local/node0/

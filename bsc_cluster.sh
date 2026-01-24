@@ -307,18 +307,20 @@ reset)
     native_start
     register_stakehub
     ;;
-init)
+genGenesis)
     exit_previous
     create_validator
     prepare_bsc_client
     reset_genesis
     prepare_config
     ;;
- firstStart)
+initNetwork)
     initNetwork
+    ;;
+firstStart)
     native_start
     register_stakehub
-    ;;   
+    ;;    
 stop)
     exit_previous $ValidatorIdx
     ;;

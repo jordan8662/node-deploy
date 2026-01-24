@@ -94,10 +94,17 @@ function native_start() {
     sleep ${sleepAfterStart}
 }
 
+function register_stakehub(){
+    # stakehub wait feynman enable 
+    ${workspace}/bin/create-validator --consensus-key-dir ${workspace}/.local/node$ValidatorIdx --vote-key-dir ${workspace}/.local/node$ValidatorIdx/bls \
+            --password-path ${workspace}/.local/node$ValidatorIdx/password.txt --amount 1501 --validator-desc Val${VnodeIdx} --rpc-url ${ConsIp}
+}
+
 
 CMD=$1
 ValidatorIdx=$2
 ConsIp=$3
+VnodeIdx=$4
 case ${CMD} in
 stop)
     exit_previous $ValidatorIdx
@@ -110,8 +117,12 @@ restart)
     exit_previous $ValidatorIdx
     native_start $ValidatorIdx
     ;;
+stake)
+    register_stakehub
+    ;;
 *)
     echo "Usage: startNode.sh stop [vidx]| start [vidx] [ip]| restart [vidx]"
     echo "example: startNode.sh start 3 172.31.27.118"
+    echo "example: startNode.sh stake toIdx rpcUrl fromIdx"
     ;;
 esac
