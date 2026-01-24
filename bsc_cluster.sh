@@ -329,6 +329,9 @@ initNetwork)
 firstStart)
     native_start
     register_stakehub
+    ;; 
+stake)
+    register_stakehub
     ;;    
 stop)
     exit_previous $ValidatorIdx
