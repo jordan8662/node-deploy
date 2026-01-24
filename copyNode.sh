@@ -29,7 +29,7 @@ function vnode() {
     
     cp -r .local/node$FromIdx/keystore newnode/.local/node$ToIdx/
     cp .local/node$FromIdx/password.txt newnode/.local/node$ToIdx/
-    cp -r .local/node$FromIdx/voteJournal newnode/.local/node$ToIdx/
+    #cp -r .local/node$FromIdx/voteJournal newnode/.local/node$ToIdx/
 }
 
 function fullnode() {
