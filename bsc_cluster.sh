@@ -24,6 +24,15 @@ function exit_previous() {
     ps -ef  | grep geth$ValIdx | grep config |awk '{print $2}' | xargs -r kill
     sleep ${sleepBeforeStart}
 }
+#stop all node
+function stop_all() {
+    echo ${workspace}
+    for ((i = 0; i < size; i++)); do
+        echo "stop geth${i}"
+        ps -ef  | grep geth$i | grep config |awk '{print $2}' | xargs -r kill
+        sleep ${sleepBeforeStart}
+    done
+}
 
 function create_validator() {
     rm -rf ${workspace}/.local
@@ -330,6 +339,9 @@ start)
 restart)
     exit_previous $ValidatorIdx
     native_start $ValidatorIdx
+    ;;
+stopAll)
+    stop_all
     ;;
 *)
     echo "Usage: bsc_cluster.sh | reset | stop [vidx]| start [vidx]| restart [vidx]"
