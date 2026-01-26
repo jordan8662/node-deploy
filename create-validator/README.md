@@ -1,0 +1,2 @@
+./create-validator --consensus-key-dir ../keys/validator0 --vote-key-dir ../keys/bls0 \
+            --password-path ../keys/password.txt --amount 1501 --validator-desc Val0 --rpc-url http://127.0.0.1:8545

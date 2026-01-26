@@ -162,36 +162,6 @@ func main() {
 	}
 	fmt.Println(fmt.Errorf("queryOut: %v", queryOut))
 
-	// 编码函数调用数据
-	queryData2, err := stakeHubAbi.Pack("testVal")
-	if err != nil {
-		fmt.Println(fmt.Errorf("编码函数调用失败: %v", err))
-		return
-	}
-
-	// 调用合约方法
-	result2, err := client.CallContract(ctx, ethereum.CallMsg{
-		To:   &stakeHubAddr,
-		Data: queryData2,
-	}, nil) // nil表示最新区块
-
-	if err != nil {
-		fmt.Println(fmt.Errorf("合约调用失败: %v", err))
-		return
-	}
-
-	// 解码返回值
-	queryOut2, err := stakeHubAbi.Unpack("testVal", result2)
-	if err != nil {
-		fmt.Println(fmt.Errorf("解码返回值失败: %v", err))
-		return
-	}
-	fmt.Println(fmt.Errorf("queryOut2: %v", queryOut2))
-
-	if 2 > 1 {
-		return
-	}
-
 	signedTx, err := consensusKs.SignTx(consensusAcc, tx, chainId)
 	if err != nil {
 		panic(err)
