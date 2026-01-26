@@ -299,7 +299,7 @@ function register_stakehub(){
     sleep 45
     for ((i = 0; i < size; i++));do
         ${workspace}/create-validator/create-validator --consensus-key-dir ${workspace}/keys/validator${i} --vote-key-dir ${workspace}/keys/bls${i} \
-            --password-path ${workspace}/keys/password.txt --amount 1501 --validator-desc Val${i} --rpc-url ${RPC_URL}
+            --password-path ${workspace}/keys/password.txt --amount 2000 --validator-desc Val${i} --rpc-url ${RPC_URL}
     done
 }
 
