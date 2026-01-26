@@ -4,6 +4,19 @@
     "stateMutability": "payable"
   },
   {
+      "inputs": [],
+      "stateMutability": "view",
+      "type": "function",
+      "name": "testVal",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ]
+  },
+  {
     "type": "function",
     "name": "BREATHE_BLOCK_INTERVAL",
     "inputs": [],
