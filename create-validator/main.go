@@ -136,6 +136,36 @@ func main() {
 		Data:     data,
 	})
 
+	// 编码函数调用数据
+	queryData, err := stakeHubAbi.Pack("minSelfDelegationBNB")
+	if err != nil {
+		fmt.Println(fmt.Errorf("编码函数调用失败: %v", err))
+		return
+	}
+
+	// 调用合约方法
+	result, err := client.CallContract(ctx, ethereum.CallMsg{
+		To:   &stakeHubAddr,
+		Data: queryData,
+	}, nil) // nil表示最新区块
+
+	if err != nil {
+		fmt.Println(fmt.Errorf("合约调用失败: %v", err))
+		return
+	}
+
+	// 解码返回值
+	queryOut, err := stakeHubAbi.Unpack("minSelfDelegationBNB", result)
+	if err != nil {
+		fmt.Println(fmt.Errorf("解码返回值失败: %v", err))
+		return
+	}
+	fmt.Println(fmt.Errorf("queryOut: %v", queryOut))
+
+	if 2 > 1 {
+		return
+	}
+
 	signedTx, err := consensusKs.SignTx(consensusAcc, tx, chainId)
 	if err != nil {
 		panic(err)
