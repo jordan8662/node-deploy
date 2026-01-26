@@ -26,7 +26,7 @@ import (
 
 var (
 	valDescription  = flag.String("validator-desc", "test-val", "validator description")
-	amount          = flag.Int("amount", 2001, "amount of PETH to delegate")
+	amount          = flag.Int("amount", 2001, "amount of PIN to delegate")
 	rpcUrl          = flag.String("rpc-url", "http://127.0.0.1:8545", "rpc url")
 	consensusKeyDir = flag.String("consensus-key-dir", "", "consensus keys dir")
 	voteKeyDir      = flag.String("vote-key-dir", "", "vote keys dir")
@@ -78,7 +78,7 @@ func main() {
 	}
 	pubKey := pubkeys[0]
 
-	delegation := new(big.Int).Mul(big.NewInt(int64(*amount)), big.NewInt(1e18)) // 5000000 PETH
+	delegation := new(big.Int).Mul(big.NewInt(int64(*amount)), big.NewInt(1e18)) // 5000000 PIN
 	description := abi.StakeHubDescription{
 		Moniker:  *valDescription,
 		Identity: *valDescription,
