@@ -251,3 +251,7 @@ scp newnode.tar.gz root@52.77.249.240:/data/
 ./startNode.sh stake 0 http://3.0.103.147:8545 2
 
 ./startNode.sh stake 0 http://3.0.103.147:8545 3
+
+scp ./build/bin/geth root@13.215.179.62:/data/newnode/
+scp ./build/bin/geth root@13.229.207.113:/data/newnode/
+scp ./build/bin/geth root@52.77.249.240:/data/newnode/
