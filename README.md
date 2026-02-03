@@ -92,21 +92,19 @@ go build
 ## 替换节点的P2P地址
 replaceP2P.sh 0 127.0.0.1:30314 172.31.25.65:30311
 
-
 geth bls account list --datadir ${DATA_DIR}
-
 
 查看对应 enode
 bootnode -nodekey sentry-nodekey -writeaddress
 
-### 注意事项（⚠️ 很重要）
+## 注意事项（⚠️ 很重要）
 1.nodekey 不能泄露
 2.泄露 = 节点身份被劫持
 3.一对 sentry / validator 通常固定 nodekey
 4.不能多个节点共用同一个 nodekey
 5.BSC 与 ETH nodekey 规则完全一致（secp256k1）
 
-### 常见问题
+## 常见问题
 Q：nodekey 是不是和钱包私钥一样？
 ❌ 不是
 ✔ 只是 P2P 网络身份私钥，不控制资产
@@ -120,7 +118,7 @@ git submodule update --init --recursive genesis
 拉取子模块的最新更改
 git submodule update --remote
 
-### 获取节点1的enode信息
+## 获取节点1的enode信息
 ./bin/geth --exec 'admin.nodeInfo.enode' attach .local/node0/geth.ipc
 
 ./bin/geth \
@@ -142,7 +140,7 @@ git submodule update --remote
   --verbosity 3
 
 
-### 修改最低的gas price，需要修改以下文件：
+## 修改最低的gas price，需要修改以下文件：
 1. config.toml
 ### config.toml参数说明
 参数	       核心作用
@@ -167,7 +165,7 @@ sed -i "s/GasPrice = 1000000000000/GasPrice = 190476190480/g" .local/node2/confi
 sed -i "s/PriceLimit = 1000000000000/PriceLimit = 190476190480/g" .local/node3/config.toml
 sed -i "s/GasPrice = 1000000000000/GasPrice = 190476190480/g" .local/node3/config.toml
 
-# 多服务器多节点部署指引
+## 多服务器多节点部署指引
 
 1. 更改链id及初始持币地址
 链id涉及文件如下：
