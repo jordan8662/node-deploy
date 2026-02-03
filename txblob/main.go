@@ -26,7 +26,7 @@ import (
 
 var (
 	account, _   = fromHexKey("2edc0461a0d5ef0da05f3852f1a9c56849b629b369b8c77a1ccd6e800f9278cf")
-	toAddr       = common.HexToAddress("0xD46AfB539865c0703deed8d2B9d14115B4908891")
+	toAddr       = common.HexToAddress("0xC09182879A8b35Ca45487A26C8f3737623D932d1")
 	endpointFlag = flag.String("endpoint", "http://127.0.0.1:8545", "The endpoint of the chain")
 	chainIdFlag  = flag.Int64("chainId", 714, "The chainId of the chain")
 	chainId      *big.Int

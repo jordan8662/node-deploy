@@ -25,7 +25,7 @@ BuilderFeeCeil= "0"
 ValidatorCommission = 1000
 
 [[Eth.Miner.Mev.Builders]]
-Address = "0xD46AfB539865c0703deed8d2B9d14115B4908891"
+Address = "0xC09182879A8b35Ca45487A26C8f3737623D932d1"
 
 [Eth.TxPool]
 Locals = []
