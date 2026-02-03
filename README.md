@@ -200,11 +200,39 @@ sed -i "s/GasPrice = 1000000000000/GasPrice = 190476190480/g" .local/node2/confi
 sed -i "s/PriceLimit = 1000000000000/PriceLimit = 190476190480/g" .local/node3/config.toml
 sed -i "s/GasPrice = 1000000000000/GasPrice = 190476190480/g" .local/node3/config.toml
 
+# 多服务器多节点部署指引
+
+1. 更改链id及初始持币地址
+链id涉及文件如下：
+.env
+config.toml
+bsc/eth/handler.go
+bsc/params/config.go
+
+初始持币涉及文件如下：
+.env
+config.toml
+bsc-genesis-contract/package.json
+
+注：更改后需要重新构建geth
+make geth
+
+2. 生成相关的key
+
+修改密码：vi ./keys/password.txt
+./createKeys vnode 9
+./createKeys bls 9
+./createKeys sentry 9
+
+3. 修改初始化持币数量（initAmt）
+vi genesis/genesis.json
 
 totalAmt:= 0x33b2e3c9fd0803ce8000000 //10亿
 initAmt:= 0x33b2c8aba00373f55700000 //10亿-8004
 validatorsTotalAmt:= 0x1b1e5d048fd92900000 //8004
 validatorAmt:= 0x6c7974123f64a40000 //2001
+
+4. 更改p2p的通信地址（enode）
 
 sed -i "s/127.0.0.1:30312/13.215.179.62:30311/g" .local/node0/config.toml
 sed -i "s/127.0.0.1:30313/13.229.207.113:30311/g" .local/node0/config.toml
@@ -227,6 +255,8 @@ sed -i 's/ListenAddr = ":303[0-9]*"/ListenAddr = ":30311"/' .local/node1/config.
 sed -i 's/ListenAddr = ":303[0-9]*"/ListenAddr = ":30311"/' .local/node2/config.toml
 sed -i 's/ListenAddr = ":303[0-9]*"/ListenAddr = ":30311"/' .local/node3/config.toml
 
+5. 拷贝节点信息及上传到其它服务器
+
 rm -rf newnode*
 ./copyNode.sh vnode 1 0
 tar -czvf newnode.tar.gz newnode
@@ -243,6 +273,13 @@ rm -rf newnode*
 tar -czvf newnode.tar.gz newnode
 scp newnode.tar.gz root@52.77.249.240:/data/
 
+6. 启动各个节点
+节点1：./bsc_cluster.sh start 0
+节点2：./startNode.sh start 0
+节点3：./startNode.sh start 0
+节点4：./startNode.sh start 0
+
+7. 质押成为验证者节点
 
 ./startNode.sh stake 0 http://3.0.103.147:8545 0
 
@@ -252,6 +289,16 @@ scp newnode.tar.gz root@52.77.249.240:/data/
 
 ./startNode.sh stake 0 http://3.0.103.147:8545 3
 
+8. 链源代码更改后，拷贝到各个服务器重新启动各节点
+
 scp ./build/bin/geth root@13.215.179.62:/data/newnode/
 scp ./build/bin/geth root@13.229.207.113:/data/newnode/
 scp ./build/bin/geth root@52.77.249.240:/data/newnode/
+
+节点1：
+./bsc_cluster.sh stop 0
+./bsc_cluster.sh start 0
+
+节点2：./startNode.sh restart 0
+节点3：./startNode.sh restart 0
+节点4：./startNode.sh restart 0
