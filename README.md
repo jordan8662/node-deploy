@@ -205,6 +205,7 @@ validatorsTotalAmt:= 0x1b1e5d048fd92900000 //8004
 validatorAmt:= 0x6c7974123f64a40000 //2001
 
 5. 初始化整个网络
+
 ./bsc_cluster.sh initNetwork
 
 6. 更改p2p的通信地址（enode）
