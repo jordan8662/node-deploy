@@ -278,3 +278,13 @@ scp ./build/bin/geth root@52.77.249.240:/data/newnode/
 节点2：./startNode.sh restart 0
 节点3：./startNode.sh restart 0
 节点4：./startNode.sh restart 0
+
+11. 获取链id
+
+  curl -X POST http://rpc.pindex.co/ \
+    -H "Content-Type: application/json" \
+    -d '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}'
+
+  curl -X POST http://52.77.249.240:8545/ \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}'
