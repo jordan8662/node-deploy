@@ -206,3 +206,42 @@ initAmt:= 0x33b2c8aba00373f55700000 //10亿-8004
 validatorsTotalAmt:= 0x1b1e5d048fd92900000 //8004
 validatorAmt:= 0x6c7974123f64a40000 //2001
 
+sed -i "s/127.0.0.1:30312/13.215.179.62:30311/g" .local/node0/config.toml
+sed -i "s/127.0.0.1:30313/13.229.207.113:30311/g" .local/node0/config.toml
+sed -i "s/127.0.0.1:30314/52.77.249.240:30311/g" .local/node0/config.toml
+
+sed -i "s/127.0.0.1:30311/3.0.103.147:30311/g" .local/node1/config.toml
+sed -i "s/127.0.0.1:30313/13.229.207.113:30311/g" .local/node1/config.toml
+sed -i "s/127.0.0.1:30314/52.77.249.240:30311/g" .local/node1/config.toml
+
+sed -i "s/127.0.0.1:30311/3.0.103.147:30311/g" .local/node2/config.toml
+sed -i "s/127.0.0.1:30312/13.215.179.62:30311/g" .local/node2/config.toml
+sed -i "s/127.0.0.1:30314/52.77.249.240:30311/g" .local/node2/config.toml
+
+sed -i "s/127.0.0.1:30311/3.0.103.147:30311/g" .local/node3/config.toml
+sed -i "s/127.0.0.1:30312/13.215.179.62:30311/g" .local/node3/config.toml
+sed -i "s/127.0.0.1:30313/13.229.207.113:30311/g" .local/node3/config.toml
+
+
+sed -i 's/ListenAddr = ":303[0-9]*"/ListenAddr = ":30311"/' .local/node1/config.toml
+sed -i 's/ListenAddr = ":303[0-9]*"/ListenAddr = ":30311"/' .local/node2/config.toml
+sed -i 's/ListenAddr = ":303[0-9]*"/ListenAddr = ":30311"/' .local/node3/config.toml
+
+rm -rf newnode*
+./copyNode.sh vnode 1 0
+tar -czvf newnode.tar.gz newnode
+scp newnode.tar.gz root@13.215.179.62:/data/
+
+
+rm -rf newnode*
+./copyNode.sh vnode 2 0
+tar -czvf newnode.tar.gz newnode
+scp newnode.tar.gz root@13.229.207.113:/data/
+
+rm -rf newnode*
+./copyNode.sh vnode 3 0
+tar -czvf newnode.tar.gz newnode
+scp newnode.tar.gz root@52.77.249.240:/data/
+
+
+startNode.sh stake 0 http://3.0.103.147:8545 0

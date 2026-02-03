@@ -27,10 +27,10 @@ function init() {
     echo "----init----"
     ValIdx=$1
     #初创建共识节点的ip地址
-    ConsIp=$2
+    #ConsIp=$2
     #sed -i "s/^127.0.0.1:303$/$ConsIp:303/" ${workspace}/.local/node$ValIdx/config.toml
-    sed -i "s/127.0.0.1:303/$ConsIp:303/g" ${workspace}/.local/node$ValIdx/config.toml
-    sed -i 's/ListenAddr = ":303[0-9]*"/ListenAddr = ":30311"/' ${workspace}/.local/node$ValIdx/config.toml
+    #sed -i "s/127.0.0.1:303/$ConsIp:303/g" ${workspace}/.local/node$ValIdx/config.toml
+    #sed -i 's/ListenAddr = ":303[0-9]*"/ListenAddr = ":30311"/' ${workspace}/.local/node$ValIdx/config.toml
 
     ${workspace}/bin/geth init --state.scheme path --datadir ${workspace}/.local/node$ValIdx/ ${workspace}/.local/node$ValIdx/genesis.json
 
@@ -97,7 +97,7 @@ function native_start() {
 function register_stakehub(){
     # stakehub wait feynman enable 
     ${workspace}/bin/create-validator --consensus-key-dir ${workspace}/.local/node$ValidatorIdx --vote-key-dir ${workspace}/.local/node$ValidatorIdx \
-            --password-path ${workspace}/.local/node$ValidatorIdx/password.txt --amount 1501 --validator-desc Val${VnodeIdx} --rpc-url ${ConsIp}
+            --password-path ${workspace}/.local/node$ValidatorIdx/password.txt --amount 2000 --validator-desc Val${VnodeIdx} --rpc-url ${ConsIp}
 }
 
 
@@ -110,7 +110,7 @@ stop)
     exit_previous $ValidatorIdx
     ;;
 start)
-    init $ValidatorIdx $ConsIp
+    init $ValidatorIdx
     native_start $ValidatorIdx
     ;;
 restart)
@@ -121,8 +121,8 @@ stake)
     register_stakehub
     ;;
 *)
-    echo "Usage: startNode.sh stop [vidx]| start [vidx] [ip]| restart [vidx]"
-    echo "example: startNode.sh start 3 172.31.27.118"
+    echo "Usage: startNode.sh stop [vidx]| start [vidx]| restart [vidx]"
+    echo "example: startNode.sh start 3"
     echo "example: startNode.sh stake toIdx rpcUrl fromIdx"
     ;;
 esac
