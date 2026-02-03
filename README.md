@@ -89,36 +89,9 @@ go build
 ./txblob
 ```
 
-## 首次启动链
-```bash
-./bsc_cluster.sh genGenesis
-#额外操作：可以修改 genesis/genesis.json 文件
-./bsc_cluster.sh initNetwork
-./bsc_cluster.sh firstStart
-```
-
-## 生成新的validator、bls、nodekey
-```bash
-./createKeys.sh vnode|bls|sentry 4
-```
-
-## 拷贝验证节点或全节点的配置
-```bash
-./copyNode.sh vnode 3
-tar -czvf newnode.gar.gz newnode
-or
-./copyNode.sh fullnode 0
-tar -czvf fullnode.gar.gz fullnode
-```
-### 全节点的部署依赖于bsc_cluster.sh部署的验证节点
-
 ## 替换节点的P2P地址
 replaceP2P.sh 0 127.0.0.1:30314 172.31.25.65:30311
 
-## 启动验证节点
-```bash
-./startNode.sh start 3 172.31.27.118
-```
 
 geth bls account list --datadir ${DATA_DIR}
 
@@ -167,12 +140,6 @@ git submodule update --remote
   --bootnodes 'enode://NODE1_ENODE_HERE@SERVER1_IP:30311' \
   --allow-insecure-unlock \
   --verbosity 3
-
-
-scp /path/to/local/file.txt username@remote_host:/path/to/remote/directory/
-
-
-scp fullnode.tar.gz root@172.31.25.65:/root/
 
 
 ### 修改最低的gas price，需要修改以下文件：
@@ -224,7 +191,14 @@ make geth
 ./createKeys bls 9
 ./createKeys sentry 9
 
-3. 修改初始化持币数量（initAmt）
+cp -r ./keys/password.txt ./newkeys/
+rm -rf ./keys
+mv newkeys keys
+
+3. 生成创世区块文件
+./bsc_cluster.sh genGenesis
+
+4. 修改初始化持币数量（initAmt）
 vi genesis/genesis.json
 
 totalAmt:= 0x33b2e3c9fd0803ce8000000 //10亿
@@ -232,7 +206,10 @@ initAmt:= 0x33b2c8aba00373f55700000 //10亿-8004
 validatorsTotalAmt:= 0x1b1e5d048fd92900000 //8004
 validatorAmt:= 0x6c7974123f64a40000 //2001
 
-4. 更改p2p的通信地址（enode）
+5. 初始化整个网络
+./bsc_cluster.sh initNetwork
+
+6. 更改p2p的通信地址（enode）
 
 sed -i "s/127.0.0.1:30312/13.215.179.62:30311/g" .local/node0/config.toml
 sed -i "s/127.0.0.1:30313/13.229.207.113:30311/g" .local/node0/config.toml
@@ -255,7 +232,7 @@ sed -i 's/ListenAddr = ":303[0-9]*"/ListenAddr = ":30311"/' .local/node1/config.
 sed -i 's/ListenAddr = ":303[0-9]*"/ListenAddr = ":30311"/' .local/node2/config.toml
 sed -i 's/ListenAddr = ":303[0-9]*"/ListenAddr = ":30311"/' .local/node3/config.toml
 
-5. 拷贝节点信息及上传到其它服务器
+7. 拷贝节点信息及上传到其它服务器
 
 rm -rf newnode*
 ./copyNode.sh vnode 1 0
@@ -273,13 +250,13 @@ rm -rf newnode*
 tar -czvf newnode.tar.gz newnode
 scp newnode.tar.gz root@52.77.249.240:/data/
 
-6. 启动各个节点
+8. 启动各个节点
 节点1：./bsc_cluster.sh start 0
 节点2：./startNode.sh start 0
 节点3：./startNode.sh start 0
 节点4：./startNode.sh start 0
 
-7. 质押成为验证者节点
+9. 质押成为验证者节点
 
 ./startNode.sh stake 0 http://3.0.103.147:8545 0
 
@@ -289,7 +266,7 @@ scp newnode.tar.gz root@52.77.249.240:/data/
 
 ./startNode.sh stake 0 http://3.0.103.147:8545 3
 
-8. 链源代码更改后，拷贝到各个服务器重新启动各节点
+10. 链源代码更改后，拷贝到各个服务器重新启动各节点
 
 scp ./build/bin/geth root@13.215.179.62:/data/newnode/
 scp ./build/bin/geth root@13.229.207.113:/data/newnode/
