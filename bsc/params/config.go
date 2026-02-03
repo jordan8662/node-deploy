@@ -289,7 +289,7 @@ var (
 
 	// used to test hard fork upgrade, following https://github.com/bnb-chain/bsc-genesis-contract/blob/master/genesis.json
 	RialtoChainConfig = &ChainConfig{
-		ChainID:             big.NewInt(714),
+		ChainID:             big.NewInt(2026),
 		HomesteadBlock:      big.NewInt(0),
 		EIP150Block:         big.NewInt(0),
 		EIP155Block:         big.NewInt(0),

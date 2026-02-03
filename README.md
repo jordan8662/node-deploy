@@ -244,4 +244,10 @@ tar -czvf newnode.tar.gz newnode
 scp newnode.tar.gz root@52.77.249.240:/data/
 
 
-startNode.sh stake 0 http://3.0.103.147:8545 0
+./startNode.sh stake 0 http://3.0.103.147:8545 0
+
+./startNode.sh stake 0 http://3.0.103.147:8545 1
+
+./startNode.sh stake 0 http://3.0.103.147:8545 2
+
+./startNode.sh stake 0 http://3.0.103.147:8545 3
