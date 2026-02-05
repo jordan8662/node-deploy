@@ -279,12 +279,25 @@ scp ./build/bin/geth root@52.77.249.240:/data/newnode/
 节点3：./startNode.sh restart 0
 节点4：./startNode.sh restart 0
 
-11. 获取链id
+11. 清理每个节点的数据便于重新初始化节点
+
+  rm -rf .local/node0/bsc.log*
+  rm -rf .local/node0/voteJournal
+  rm -rf .local/node0/geth0
+  rm -rf .local/node0/bsc-node.log
+  rm -rf .local/node0/geth.ipc
+  rm -rf .local/node0/geth/LOCK
+  rm -rf .local/node0/geth/nodes
+  rm -rf .local/node0/geth/chaindata
+
+12. 获取链id
+
+  curl -X POST https://rpc.pindex.co/ \
+    -H "Content-Type: application/json" \
+    -d '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}'
 
   curl -X POST http://rpc.pindex.co/ \
     -H "Content-Type: application/json" \
     -d '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}'
-
-  curl -X POST http://52.77.249.240:8545/ \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}'
+ 
+  
