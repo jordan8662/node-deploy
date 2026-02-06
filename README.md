@@ -153,17 +153,17 @@ DefaultMaxPrice    = big.NewInt(190476190480)
 bsc/core/systemcontracts/fermi/rialto/StakeHubContract
 
 
-sed -i "s/PriceLimit = 1000000000000/PriceLimit = 190476190480/g" .local/node0/config.toml
-sed -i "s/GasPrice = 1000000000000/GasPrice = 190476190480/g" .local/node0/config.toml
+sed -i "s/PriceLimit = 190476190480/PriceLimit = 1000000000/g" .local/node0/config.toml
+sed -i "s/GasPrice = 190476190480/GasPrice = 1000000000/g" .local/node0/config.toml
 
-sed -i "s/PriceLimit = 1000000000000/PriceLimit = 190476190480/g" .local/node1/config.toml
-sed -i "s/GasPrice = 1000000000000/GasPrice = 190476190480/g" .local/node1/config.toml
+sed -i "s/PriceLimit = 190476190480/PriceLimit = 1000000000/g" .local/node1/config.toml
+sed -i "s/GasPrice = 190476190480/GasPrice = 1000000000/g" .local/node1/config.toml
 
-sed -i "s/PriceLimit = 1000000000000/PriceLimit = 190476190480/g" .local/node2/config.toml
-sed -i "s/GasPrice = 1000000000000/GasPrice = 190476190480/g" .local/node2/config.toml
+sed -i "s/PriceLimit = 190476190480/PriceLimit = 1000000000/g" .local/node2/config.toml
+sed -i "s/GasPrice = 190476190480/GasPrice = 1000000000/g" .local/node2/config.toml
 
-sed -i "s/PriceLimit = 1000000000000/PriceLimit = 190476190480/g" .local/node3/config.toml
-sed -i "s/GasPrice = 1000000000000/GasPrice = 190476190480/g" .local/node3/config.toml
+sed -i "s/PriceLimit = 190476190480/PriceLimit = 1000000000/g" .local/node3/config.toml
+sed -i "s/GasPrice = 190476190480/GasPrice = 1000000000/g" .local/node3/config.toml
 
 ## 多服务器多节点部署指引
 

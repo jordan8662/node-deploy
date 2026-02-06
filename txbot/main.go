@@ -13,7 +13,7 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
-	//"github.com/ethereum/go-ethereum/params"
+	"github.com/ethereum/go-ethereum/params"
 )
 
 var (
@@ -55,7 +55,8 @@ type ExtAcc struct {
 
 func sendEther(client *ethclient.Client, fromEO ExtAcc, toAddr common.Address, value *big.Int, nonce uint64) (common.Hash, error) {
 	gasLimit := uint64(3e4)
-	gasPrice := big.NewInt(190476190480)
+	//gasPrice := big.NewInt(190476190480)
+	gasPrice := big.NewInt(1 * params.GWei)
 
 	tx := types.NewTransaction(nonce, toAddr, value, gasLimit, gasPrice, nil)
 	signedTx, err := types.SignTx(tx, types.NewEIP155Signer(chainId), fromEO.Key)

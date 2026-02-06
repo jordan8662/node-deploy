@@ -142,8 +142,8 @@ function prepare_config() {
 
     sed -i "s/176405560900000000000000000/0x0/" genesis.json
     sed -i 's/"balance": "0x33b2e3c9fd0803ce8000000"/"balance": "0x6c7974123f64a40000"/g' genesis.json
-    sed -i "s/PriceLimit = 1000000000/PriceLimit = 190476190480/g" ${workspace}/config.toml
-    sed -i "s/GasPrice = 1000000000/GasPrice = 190476190480/g" ${workspace}/config.toml
+    #sed -i "s/PriceLimit = 1000000000/PriceLimit = 190476190480/g" ${workspace}/config.toml
+    #sed -i "s/GasPrice = 1000000000/GasPrice = 190476190480/g" ${workspace}/config.toml
 
 }
 
