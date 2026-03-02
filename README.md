@@ -210,20 +210,28 @@ validatorAmt:= 0x6c7974123f64a40000 //2001
 
 6. 更改p2p的通信地址（enode）
 
-sed -i "s/127.0.0.1:30312/13.215.179.62:30311/g" .local/node0/config.toml
+sed -i "s/127.0.0.1:30312/47.130.229.119:30311/g" .local/node0/config.toml
 sed -i "s/127.0.0.1:30313/13.229.207.113:30311/g" .local/node0/config.toml
 sed -i "s/127.0.0.1:30314/52.77.249.240:30311/g" .local/node0/config.toml
+sed -i "s/NoPruning = false/NoPruning = true/g" .local/node0/config.toml
+
+vi .local/node0/config.toml
+
+添加如下内容:
+[Eth]
+#修改
+NoPruning = true         # 禁用状态剪枝，保留所有历史状态
 
 sed -i "s/127.0.0.1:30311/3.0.103.147:30311/g" .local/node1/config.toml
 sed -i "s/127.0.0.1:30313/13.229.207.113:30311/g" .local/node1/config.toml
 sed -i "s/127.0.0.1:30314/52.77.249.240:30311/g" .local/node1/config.toml
 
 sed -i "s/127.0.0.1:30311/3.0.103.147:30311/g" .local/node2/config.toml
-sed -i "s/127.0.0.1:30312/13.215.179.62:30311/g" .local/node2/config.toml
+sed -i "s/127.0.0.1:30312/47.130.229.119:30311/g" .local/node2/config.toml
 sed -i "s/127.0.0.1:30314/52.77.249.240:30311/g" .local/node2/config.toml
 
 sed -i "s/127.0.0.1:30311/3.0.103.147:30311/g" .local/node3/config.toml
-sed -i "s/127.0.0.1:30312/13.215.179.62:30311/g" .local/node3/config.toml
+sed -i "s/127.0.0.1:30312/47.130.229.119:30311/g" .local/node3/config.toml
 sed -i "s/127.0.0.1:30313/13.229.207.113:30311/g" .local/node3/config.toml
 
 
@@ -236,7 +244,7 @@ sed -i 's/ListenAddr = ":303[0-9]*"/ListenAddr = ":30311"/' .local/node3/config.
 rm -rf newnode*
 ./copyNode.sh vnode 1 0
 tar -czvf newnode.tar.gz newnode
-scp newnode.tar.gz root@13.215.179.62:/data/
+scp newnode.tar.gz root@47.130.229.119:/data/
 
 
 rm -rf newnode*
@@ -267,7 +275,7 @@ scp newnode.tar.gz root@52.77.249.240:/data/
 
 10. 链源代码更改后，拷贝到各个服务器重新启动各节点
 
-scp ./build/bin/geth root@13.215.179.62:/data/newnode/
+scp ./build/bin/geth root@47.130.229.119:/data/newnode/
 scp ./build/bin/geth root@13.229.207.113:/data/newnode/
 scp ./build/bin/geth root@52.77.249.240:/data/newnode/
 
@@ -299,5 +307,16 @@ scp ./build/bin/geth root@52.77.249.240:/data/newnode/
   curl -X POST http://rpc.pindex.co/ \
     -H "Content-Type: application/json" \
     -d '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}'
- 
-  
+
+### 查看节点信息
+
+./bin/geth --exec 'admin.nodeInfo.protocols.eth' attach .local/node0/geth.ipc
+
+./bin/geth attach .local/node0/geth.ipc
+
+eth.getBlock(12345)
+
+ps aux | grep geth #查看--gcmode archive
+
+# 查看日志（如果日志有记录）
+grep "gcmode" .local/node0/bsc.log

@@ -9,7 +9,7 @@ basedir=$(
 )
 workspace=${basedir}
 source ${workspace}/.env
-gcmode="full"
+
 sleepBeforeStart=15
 sleepAfterStart=10
 
@@ -105,15 +105,27 @@ CMD=$1
 ValidatorIdx=$2
 ConsIp=$3
 VnodeIdx=$4
+gcmode=""
+
 case ${CMD} in
 stop)
     exit_previous $ValidatorIdx
     ;;
 start)
+    gcmode=${ConsIp}
+    if [ -z "$gcmode" ]; then
+        echo "startNode.sh start 0 full|archive"
+        exit 1
+    fi
     init $ValidatorIdx
     native_start $ValidatorIdx
     ;;
 restart)
+    gcmode=${ConsIp}
+    if [ -z "$gcmode" ]; then
+        echo "startNode.sh restart 0 full|archive"
+        exit 1
+    fi
     exit_previous $ValidatorIdx
     native_start $ValidatorIdx
     ;;
@@ -122,7 +134,7 @@ stake)
     ;;
 *)
     echo "Usage: startNode.sh stop [vidx]| start [vidx]| restart [vidx]"
-    echo "example: startNode.sh start 3"
+    echo "example: startNode.sh start 3 full"
     echo "example: startNode.sh stake toIdx rpcUrl fromIdx"
     ;;
 esac

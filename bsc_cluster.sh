@@ -224,6 +224,13 @@ function start_node() {
     local metrics_port=$8
     local pprof_port=$9
 
+    new_gc_mode=""
+    if  [ $idx -eq 0 ] ; then
+        new_gc_mode="archive"
+    else
+        new_gc_mode=${gcmode}
+    fi
+
     # update `config` in genesis.json
     # ${workspace}/.local/node${i}/geth${i} dumpgenesis --datadir ${workspace}/.local/node${i} | jq . > ${workspace}/.local/node${i}/genesis.json
     nohup ${geth_bin} --config ${datadir}/config.toml \
@@ -234,7 +241,7 @@ function start_node() {
         --http --http.addr 0.0.0.0 --http.port ${http_port} --http.corsdomain "*" \
         --metrics --metrics.addr localhost --metrics.port ${metrics_port} \
         --pprof --pprof.addr localhost --pprof.port ${pprof_port} \
-        --gcmode ${gcmode} --syncmode full --monitor.maliciousvote \
+        --gcmode ${new_gc_mode} --syncmode full --monitor.maliciousvote \
         --rialtohash ${rialtoHash} \
         --override.passedforktime ${PassedForkTime} \
         --override.lorentz ${PassedForkTime} \
