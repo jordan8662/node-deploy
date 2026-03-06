@@ -126,7 +126,7 @@ function prepare_config() {
       --init-burn-ratio "1000" \
       --init-felony-slash-scope "28800" \
       --breathe-block-interval "1 days" \
-      --block-interval "3 seconds" \
+      --block-interval "1 seconds" \
       --stake-hub-protector "${INIT_HOLDER}" \
       --unbond-period "7 days" \
       --downtime-jail-time "2 days" \

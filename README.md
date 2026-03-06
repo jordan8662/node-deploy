@@ -147,11 +147,13 @@ git submodule update --remote
 PriceLimit	交易能不能进池子的最低门槛
 GasPrice	  节点默认使用的 gas 单价
 Recommit	  验证者多久重新打包一次区块（10000000000 10秒）
-MaxWaitProposalInSecs 出块时间
 2. bsc/eth/gasprice/gasprice.go DefaultMaxPrice
 DefaultMaxPrice    = big.NewInt(190476190480)
 3. 修改验证节点需要的质押数量合约
 bsc/core/systemcontracts/fermi/rialto/StakeHubContract
+4. 修改出块时间
+./bsc_cluster.sh
+--block-interval "3 seconds"
 
 
 sed -i "s/PriceLimit = 1000000000/PriceLimit = 100000000/g" .local/node0/config.toml
