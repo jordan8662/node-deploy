@@ -147,23 +147,24 @@ git submodule update --remote
 PriceLimit	交易能不能进池子的最低门槛
 GasPrice	  节点默认使用的 gas 单价
 Recommit	  验证者多久重新打包一次区块（10000000000 10秒）
+MaxWaitProposalInSecs 出块时间
 2. bsc/eth/gasprice/gasprice.go DefaultMaxPrice
 DefaultMaxPrice    = big.NewInt(190476190480)
 3. 修改验证节点需要的质押数量合约
 bsc/core/systemcontracts/fermi/rialto/StakeHubContract
 
 
-sed -i "s/PriceLimit = 190476190480/PriceLimit = 1000000000/g" .local/node0/config.toml
-sed -i "s/GasPrice = 190476190480/GasPrice = 1000000000/g" .local/node0/config.toml
+sed -i "s/PriceLimit = 1000000000/PriceLimit = 100000000/g" .local/node0/config.toml
+sed -i "s/GasPrice = 1000000000/GasPrice = 100000000/g" .local/node0/config.toml
 
-sed -i "s/PriceLimit = 190476190480/PriceLimit = 1000000000/g" .local/node1/config.toml
-sed -i "s/GasPrice = 190476190480/GasPrice = 1000000000/g" .local/node1/config.toml
+sed -i "s/PriceLimit = 1000000000/PriceLimit = 100000000/g" .local/node1/config.toml
+sed -i "s/GasPrice = 1000000000/GasPrice = 100000000/g" .local/node1/config.toml
 
-sed -i "s/PriceLimit = 190476190480/PriceLimit = 1000000000/g" .local/node2/config.toml
-sed -i "s/GasPrice = 190476190480/GasPrice = 1000000000/g" .local/node2/config.toml
+sed -i "s/PriceLimit = 1000000000/PriceLimit = 100000000/g" .local/node2/config.toml
+sed -i "s/GasPrice = 1000000000/GasPrice = 100000000/g" .local/node2/config.toml
 
-sed -i "s/PriceLimit = 190476190480/PriceLimit = 1000000000/g" .local/node3/config.toml
-sed -i "s/GasPrice = 190476190480/GasPrice = 1000000000/g" .local/node3/config.toml
+sed -i "s/PriceLimit = 1000000000/PriceLimit = 100000000/g" .local/node3/config.toml
+sed -i "s/GasPrice = 1000000000/GasPrice = 100000000/g" .local/node3/config.toml
 
 ## 多服务器多节点部署指引
 
@@ -259,9 +260,9 @@ scp newnode.tar.gz root@52.77.249.240:/data/
 
 8. 启动各个节点
 节点1：./bsc_cluster.sh start 0
-节点2：./startNode.sh start 0
-节点3：./startNode.sh start 0
-节点4：./startNode.sh start 0
+节点2：./startNode.sh start 0 full
+节点3：./startNode.sh start 0 full
+节点4：./startNode.sh start 0 full
 
 9. 质押成为验证者节点
 
@@ -283,9 +284,9 @@ scp ./build/bin/geth root@52.77.249.240:/data/newnode/
 ./bsc_cluster.sh stop 0
 ./bsc_cluster.sh start 0
 
-节点2：./startNode.sh restart 0
-节点3：./startNode.sh restart 0
-节点4：./startNode.sh restart 0
+节点2：./startNode.sh restart 0 full
+节点3：./startNode.sh restart 0 full
+节点4：./startNode.sh restart 0 full
 
 11. 清理每个节点的数据便于重新初始化节点
 
@@ -318,5 +319,5 @@ eth.getBlock(12345)
 
 ps aux | grep geth #查看--gcmode archive
 
-# 查看日志（如果日志有记录）
+查看日志（如果日志有记录）
 grep "gcmode" .local/node0/bsc.log
