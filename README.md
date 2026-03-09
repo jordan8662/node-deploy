@@ -89,6 +89,31 @@ go build
 ./txblob
 ```
 
+## 修改链id、gas price、验证节点所需的质押数量等所涉及的文件
+
+-- gasprice
+bsc/eth/gasprice/gasprice.go
+
+--contract
+bsc/core/systemcontracts/upgrade.go
+bsc/core/systemcontracts/bohr/chapel/StakeHubContract
+bsc/core/systemcontracts/bohr/mainnet/StakeHubContract
+bsc/core/systemcontracts/fermi/chapel/StakeHubContract
+bsc/core/systemcontracts/fermi/mainnet/StakeHubContract
+bsc/core/systemcontracts/fermi/rialto/StakeHubContract
+bsc/core/systemcontracts/feynman_fix/chapel/StakeHubContract
+bsc/core/systemcontracts/maxwell/chapel/StakeHubContract
+bsc/core/systemcontracts/maxwell/mainnet/StakeHubContract
+bsc/core/systemcontracts/maxwell/rialto/StakeHubContract
+bsc/core/systemcontracts/pascal/chapel/StakeHubContract
+bsc/core/systemcontracts/pascal/mainnet/StakeHubContract
+bsc/core/systemcontracts/feynman/chapel/StakeHubContract
+bsc/core/systemcontracts/feynman/mainnet/StakeHubContract
+
+--chain id
+bsc/eth/handler.go
+bsc/params/config.go
+
 ## 替换节点的P2P地址
 replaceP2P.sh 0 127.0.0.1:30314 172.31.25.65:30311
 
